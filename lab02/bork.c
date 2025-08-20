@@ -29,13 +29,14 @@ void free_Str(Str str) {
 /* concatinates two strings together */
 Str concat(Str a, Str b) {
     int new_len = a.len + b.len;
-    char *new_str = alloc_str(new_len);
+    char *new_str = alloc_str(new_len + 1);
     for (int i = 0; i < a.len; ++i) {
         new_str[i] = a.data[i];
     }
     for (int i = 0; i < b.len; ++i) {
         new_str[i+a.len] = b.data[i];
     }
+    new_str[new_len] = '\0';
     free(a.data);
     free(b.data);
     return (Str){.data=new_str, .len=new_len};
@@ -45,14 +46,16 @@ Str concat(Str a, Str b) {
 Str translate_to_bork(char c) {
     switch(c) {
     case 'a': case 'e': case 'i': case 'o': case 'u': {
-        char *res = alloc_str(2);
+        char *res = alloc_str(3);
         res[0] = c;
         res[1] = 'f';
-        return make_Str(res);
+        res[2] = '\0';
+	return make_Str(res);
     }
     }
-    char *res = alloc_str(1);
+    char *res = alloc_str(2);
     res[0] = c;
+    res[1] = '\0';
     return make_Str(res);
 }
 
@@ -72,5 +75,6 @@ int main(int argc, char*argv[]) {
     printf("Input string: \"%s\"\n", src_str.data);
     printf("Length of translated string: %d\n", dest_str.len);
     printf("Translate to Bork: \"%s\"\n", dest_str.data);
+    free_Str(dest_str);
     return 0;
 }

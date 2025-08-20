@@ -3,3 +3,15 @@
 # Lines starting with # are comments, feel free to add any to document your commands
 
 # Please add your commands below this line
+b check_number
+run
+next
+step
+backtrace
+b 31 if letter=='0'
+continue
+print letter
+print is_in_range
+print lower
+print upper
+q
